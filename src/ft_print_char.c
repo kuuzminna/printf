@@ -2,6 +2,6 @@
 
 int	ft_print_char(char chr)
 {
-	ft_putchar(chr);
+	ft_putchar_fd(chr, 1);
 	return (1);
 }
