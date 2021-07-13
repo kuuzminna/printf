@@ -1,10 +1,10 @@
-#include "ft_printf.h"
+#include "libftprintf.h"
 
-int	ft_print_int(int n)
+int	ft_print_int(va_list ap)
 {
-	char	*str;
+	int		n;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
+	n = va_arg(ap, int);
+	ft_putnbr_fd(n, 1);
 	return (ft_nlen(n));
 }

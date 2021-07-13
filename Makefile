@@ -1,33 +1,32 @@
-NAME =	libftprintf.a
-
 LIBFT = ./libft/libft.a
 
+NAME = libftprintf.a
+
 SRCS =  $(wildcard ./src/*.c)
+		
+SURPL_O = 	$(SRCS:.c=.o)
+
+CC = gcc
+
+FLAGS = -c -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
-INCLUDES = -I./includes
+$(NAME): $(OBJS)
+	$(MAKE) all -C ./libft
+	cp libft/libft.a $(NAME)
+	$(CC) $(FLAGS) $(SRCS)
+	ar -rcs $(NAME) $(OBJS)
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
+all : $(NAME)
 
-all	:	$(NAME)
+clean :
+	$(MAKE) clean -C ./libft
+	rm -rf $(SURPL_O) 
+	rm -rf $(OBJS)
 
-$(NAME)	:	$(OBJ)
-			$(MAKE) all -C ./libft
-			cp $(LIBFT) $(NAME)
-			$CC() $(FLAGS) $(INCLUDES) $(SRCS)
-			ar rcs $(NAME) $?
-
-clean	:
-	rm -rf $(wildcard ./*.o)
-	rm -rf $(wildcard ./*/*.o)
-
-fclean :	clean 
-	$(clean)
+fclean : clean
 	$(MAKE) fclean -C ./libft
 	rm -rf $(NAME)
 
-re	:	fclean all
-
-.PHONY :	all clean fclean re
+re : fclean all
